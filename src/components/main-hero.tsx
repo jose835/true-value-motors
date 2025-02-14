@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 export default function MainHero() {
+    const navigate = useNavigate();
+
     return (
         <div className="flex flex-col md:flex-row">
             <div className="flex-1 hidden md:block h-screen bg-gradient-to-t from-primary via-primary to-black/90"></div>
@@ -47,6 +51,7 @@ export default function MainHero() {
 
                         <button
                             style={{ boxShadow: "1px 10px 20px #0080B4" }}
+                            onClick={() => navigate("/cars")}
                             className="bg-accent text-white py-3 px-6 rounded-lg font-semibold text-sm hidden md:block"
                         >
                             Open Catalog
@@ -62,6 +67,7 @@ export default function MainHero() {
 
             <div className="absolute bottom-5 left-0 right-0 flex justify-center px-5 md:hidden z-20">
                 <button
+                    onClick={() => navigate("/cars")}
                     style={{ boxShadow: "1px 10px 20px #0080B4" }}
                     className="bg-accent text-white py-3 px-6 rounded-lg font-semibold text-sm w-full max-w-xs"
                 >

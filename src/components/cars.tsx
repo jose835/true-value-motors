@@ -5,11 +5,12 @@ import TagCategory from "./tag-category";
 import { CarProps } from "../types/types";
 
 export default function Cars() {
+    const SIZE_CARD = 376;
+    const { innerWidth } = window;
     const [activeCategory, setActiveCategory] = useState(0);
     const [filteredCars, setFilteredCars] = useState<CarProps[]>(cars);
     const [activeScroll, setActiveScroll] = useState(0);
     const scrollRef = useRef<HTMLDivElement>(null);
-    const { innerWidth } = window;
 
     const handleScroll = () => {
         if (!scrollRef.current) return;
@@ -93,7 +94,7 @@ export default function Cars() {
             </div>
 
             <footer className="mt-10 flex items-center space-x-2 justify-center">
-                {filteredCars.slice(0, cars.length - (Number((innerWidth / 376).toFixed(0)) - 1)).map((_, index) => (
+                {filteredCars.slice(0, cars.length - (Number((innerWidth / SIZE_CARD).toFixed(0)) - 1)).map((_, index) => (
                     <div
                         key={index}
                         className={`size-2 rounded-full ${activeScroll === index ? "bg-accent" : "bg-[#474747]"}`}

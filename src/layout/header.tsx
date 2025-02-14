@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MenuIcon, CloseIcon } from "../icons/icons";
+import { sendMessageByWhatsapp } from "../lib/functions";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function Header() {
             </nav>
 
             <div className="hidden md:flex flex-grow justify-end">
-                <button style={{ boxShadow: '1px 10px 20px #0080B4' }} className="bg-accent text-white py-3 px-6 rounded-lg font-semibold text-sm">
+                <button onClick={sendMessageByWhatsapp} style={{ boxShadow: '1px 10px 20px #0080B4' }} className="bg-accent text-white py-3 px-6 rounded-lg font-semibold text-sm">
                     Contact Us
                 </button>
             </div>

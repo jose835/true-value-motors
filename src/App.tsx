@@ -1,27 +1,27 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Cars from './components/cars';
-import Information from './components/information';
-import MainHero from './components/main-hero';
-import Services from './components/services';
-import Testimonial from './components/testimonial';
-import Values from './components/values';
-import Footer from './layout/footer';
-import Header from './layout/header';
+import Cars from './pages/Cars';
+import Home from './pages/Home';
+import CarInformation from './pages/CarInformation';
+
+interface RouteType {
+  path: string;
+  element: React.ReactNode;
+}
 
 function App() {
+  const routes: RouteType[] = [
+    { path: "/", element: <Home /> },
+    { path: "cars", element: <Cars /> },
+    { path: "car-information", element: <CarInformation /> }
+  ];
+
   return (
-    <>
-      <section className="min-h-screen relative">
-        <Header />
-        <MainHero />
-      </section>
-      <Services />
-      <Values />
-      <Cars />
-      <Testimonial />
-      <Information />
-      <Footer />
-    </>
+    <Routes>
+      {routes.map(({ path, element }) => (
+        <Route key={path} path={path} element={element} />
+      ))}
+    </Routes>
   );
 }
 

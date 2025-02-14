@@ -9,5 +9,6 @@ export const cars: CarProps[] = [
     { name: 'Mercedes Benz C300', image: './images/cars/mercedes-benz-c300.avif', price: '$5,000.00', users: 6, category: 'Business' },
     { name: 'Toyota Corolla', image: './images/cars/toyota-corolla.png', price: '$9,850.00', users: 6, category: 'Family' },
     { name: 'BMW X6', image: './images/cars/bmw-x6.png', price: '$7,500.00', users: 5, category: 'Luxury' },
+    { name: "Cybertruck", image: './images/cars/cybertruck.png', price: '$120,000.00', users: 6, category: 'Luxury' },
     { name: "Lamborghini Urus", image: './images/cars/lamborghini-urus.png', price: '$132,836.00', users: 5, category: 'Luxury' },
 ];

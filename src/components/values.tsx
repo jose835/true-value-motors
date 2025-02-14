@@ -1,3 +1,5 @@
+import { sendMessageByWhatsapp } from "../lib/functions";
+
 export default function Values() {
     const articles = [
         {
@@ -24,11 +26,11 @@ export default function Values() {
                 <div className="my-5">
                     <p className="text-white/70 text-[15px] font-medium xl:max-w-96 xl:text-left text-center">
                         You are European members of the same family. Lor separate existence is a myth.
-                        For science, music, sport, etc., <br className="xl:block hidden"/>Europe uses the same vocabulary. Lor separates
+                        For science, music, sport, etc., <br className="xl:block hidden" />Europe uses the same vocabulary. Lor separates
                         the existence of a myth.
                     </p>
 
-                    <button style={{ boxShadow: '1px 10px 20px #0080B4' }} className="bg-accent xl:block hidden text-white py-4 px-10 mt-10 rounded-lg font-semibold text-base">
+                    <button onClick={sendMessageByWhatsapp} style={{ boxShadow: '1px 10px 20px #0080B4' }} className="bg-accent xl:block hidden text-white py-4 px-10 mt-10 rounded-lg font-semibold text-base">
                         Contact Us
                     </button>
                 </div>
@@ -57,7 +59,7 @@ export default function Values() {
             </main>
 
             <footer className="pr-4">
-                <button style={{ boxShadow: '1px 10px 20px #0080B4' }} className="bg-accent w-full md:hidden block text-white py-4 px-10 mt-10 rounded-lg font-semibold text-base">
+                <button onClick={sendMessageByWhatsapp} style={{ boxShadow: '1px 10px 20px #0080B4' }} className="bg-accent w-full md:hidden block text-white py-4 px-10 mt-10 rounded-lg font-semibold text-base">
                     Contact Us
                 </button>
             </footer>
