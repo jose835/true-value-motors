@@ -55,7 +55,7 @@ export default function Cars() {
     }
 
     return (
-        <section className="bg-primary 2xl:px-44 px-4 mt-20">
+        <section className="bg-primary 2xl:px-44 px-8 mt-20">
             <header>
                 <h3 className="text-white font-bold text-4xl text-center">
                     Find Your Best <br className="md:hidden block" /> Car Here

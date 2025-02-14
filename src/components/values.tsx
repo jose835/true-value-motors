@@ -18,7 +18,7 @@ export default function Values() {
 
     return (
         <section className='bg-primary 2xl:pl-44 pl-8'>
-            <header className='flex xl:flex-row flex-col justify-between xl:pr-44 md:pr-4'>
+            <header className='flex xl:flex-row flex-col justify-between xl:pr-44 pr-8'>
                 <h3 className='text-white font-bold lg:text-6xl xl:text-left text-center text-5xl leading-snug'>
                     Sale of trusted cars <br className="xl:block hidden" /> for personal and <br className="xl:block hidden" /> business use
                 </h3>
@@ -37,7 +37,7 @@ export default function Values() {
             </header>
 
             <main className='flex md:flex-row flex-col justify-between items-center'>
-                <div className='md:space-y-10 space-y-5 md:pr-0 pr-4'>
+                <div className='md:space-y-10 space-y-5 md:pr-0 pr-8'>
                     {articles.map((article, index) => (
                         <article key={index} className='w-auto md:p-4 px-5 py-6 bg-gradient-radial from-primary via-primary/90 to-white/10 flex md:flex-row flex-col md:items-start items-center md:space-x-5 rounded-2xl border-4 border-grey'>
                             <div className='size-12 flex items-center justify-center rounded-xl bg-accent'>
@@ -58,7 +58,7 @@ export default function Values() {
                 />
             </main>
 
-            <footer className="pr-4">
+            <footer className="pr-8">
                 <button onClick={sendMessageByWhatsapp} style={{ boxShadow: '1px 10px 20px #0080B4' }} className="bg-accent w-full md:hidden block text-white py-4 px-10 mt-10 rounded-lg font-semibold text-base">
                     Contact Us
                 </button>

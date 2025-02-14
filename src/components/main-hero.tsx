@@ -37,7 +37,7 @@ export default function MainHero() {
                     </div>
 
                     <div className="flex items-center py-2 justify-between">
-                        <div className=" flex-grow basis-0 items-center space-x-10 hidden md:flex">
+                        <div className="flex-grow basis-0 items-center space-x-10 hidden md:flex">
                             <div className="flex flex-col">
                                 <span className="font-bold text-white xl:text-6xl text-4xl">500+</span>
                                 <span className="font-semibold text-white/80 xl:text-xl text-base inline-block mt-3">Total Cars Sold</span>

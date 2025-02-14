@@ -1,9 +1,11 @@
+import { sendMessageByWhatsapp } from "../lib/functions";
+
 export default function Information() {
     return (
         <>
             <section className='md:mt-60 mt-10 2xl:pr-44'>
-                <div className="md:hidden block mx-4">
-                    <h5 className='text-4xl text-center text-white font-bold leading-tight'>Ready to<br className="md:block hidden" /> Accompany Your <br  />Important Journey</h5>
+                <div className="md:hidden block mx-8">
+                    <h5 className='text-4xl text-center text-white font-bold leading-tight'>Ready to<br className="md:block hidden" /> Accompany Your <br />Important Journey</h5>
                     <p className='md:max-w-lg text-center mb:mb-0 mb-5 text-gray-300 mt-5 font-normal'>You are European members of the same family. Lor separate existence is a myth.
                         For science, music, sport</p>
                 </div>
@@ -19,12 +21,15 @@ export default function Information() {
                 </div>
             </section>
 
-            <button
-                style={{ boxShadow: "1px 10px 20px #0080B4" }}
-                className="bg-accent text-white block mx-auto mt-20 py-3 px-6 rounded-lg font-semibold text-sm"
-            >
-                Sale a Car Now
-            </button>
+            <footer className="px-8">
+                <button
+                    style={{ boxShadow: "1px 10px 20px #0080B4" }}
+                    onClick={sendMessageByWhatsapp}
+                    className="bg-accent text-white block md:w-auto w-full mx-auto mt-20 py-4 px-10 rounded-lg font-semibold text-sm"
+                >
+                    Sale a Car Now
+                </button>
+            </footer>
         </>
     )
 }

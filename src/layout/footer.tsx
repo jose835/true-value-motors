@@ -50,7 +50,7 @@ export default function Footer() {
             </div>
 
             <div className='flex md:flex-row flex-col-reverse items-center justify-between mt-16'>
-                <span className='text-gray-300 font-medium text-[13px] md:mt-0 mt-1'>CopyRight © {new Date().getFullYear()} True Value Motors. All rights reserved.</span>
+                <span className='text-gray-300 font-medium text-[13px] md:text-left text-center md:mt-0 mt-1'>CopyRight © {new Date().getFullYear()} True Value Motors. All rights reserved.</span>
 
                 <div className='flex items-center space-x-2'>
                     <a href='#' className='text-[13px] text-gray-300 hover:underline font-medium'>Privacy</a>
