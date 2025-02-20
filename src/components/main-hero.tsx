@@ -5,14 +5,14 @@ export default function MainHero() {
 
     return (
         <div className="flex flex-col md:flex-row">
-            <div className="flex-1 hidden md:block h-screen bg-gradient-to-t from-primary via-primary to-black/90"></div>
+            <div className="flex-1 hidden md:block h-screen  bg-gradient-to-t from-primary via-primary to-black/90"></div>
 
             <div className="absolute block md:hidden inset-0 bg-gradient-to-t from-black/90 via-[#0f212a] to-primary"></div>
 
             <div className="flex-1 md:block hidden bg-gradient-to-t from-[#0f212a] via-[#0f212a] to-dark-accent/90"></div>
             <div className="flex-1 md:block hidden bg-gradient-to-t from-[#1D1D1D] via-[#1D1D1D] to-black/90"></div>
 
-            <div className="absolute xl:top-44 top-32 left-0 right-0 xl:mx-44 mx-8">
+            <div className="absolute xl:top-44 top-32 left-0 right-0 xl:mx-44 mx-8 ">
                 <div className="max-h-screen h-full flex flex-col justify-between">
 
                     <div className="flex flex-col flex-grow">

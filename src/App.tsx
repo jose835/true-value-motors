@@ -3,6 +3,7 @@ import './App.css';
 import Cars from './pages/Cars';
 import Home from './pages/Home';
 import CarInformation from './pages/CarInformation';
+import About from './pages/About';
 
 interface RouteType {
   path: string;
@@ -13,7 +14,8 @@ function App() {
   const routes: RouteType[] = [
     { path: "/", element: <Home /> },
     { path: "cars", element: <Cars /> },
-    { path: "car-information", element: <CarInformation /> }
+    { path: "car-information", element: <CarInformation /> },
+    { path: "about-us", element: <About /> },
   ];
 
   return (

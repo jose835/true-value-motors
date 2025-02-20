@@ -2,7 +2,7 @@ import { EmailIcon, FacebookIcon, InstagramIcon, LocationIcon, PhoneIcon, Twitte
 
 export default function Footer() {
     return (
-        <footer className='bg-black pt-5 pb-2 2xl:px-44 px-8 mt-20'>
+        <footer className='bg-black pt-5 pb-2 2xl:px-44 px-8 mt-20 max-w-[2800px] mx-auto'>
             <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
                 <div className="flex items-center md:mt-0 mt-5 text-white space-x-3 order-3 md:order-none">
                     <div className="size-8 border-2 border-gray-300 rounded-full p-1 flex items-center justify-center">

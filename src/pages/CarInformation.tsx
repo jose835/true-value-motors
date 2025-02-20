@@ -12,7 +12,7 @@ export default function CarInformation() {
                     <div className="lg:w-auto w-full">
                         <h1 className="text-4xl text-white font-bold">BMW X6</h1>
                         <h2 className="text-accent font-bold text-3xl mt-5">$15,000.00</h2>
-                        <img src="./images/cars/bmw-x6.png" alt="BMW X6" className="h-96 w-auto object-contain lg:mx-0 mx-auto" />
+                        <img src="./images/cars/bmw-x6.png" alt="BMW X6" className="md:h-96 h-60 w-auto object-contain lg:mx-0 mx-auto" />
 
                         <div className="md:grid hide-scrollbar md:w-fit xl:grid-cols-4 xl:gap-y-0 gap-y-3 lg:grid-cols-2 md:grid-cols-4 flex lg:mx-0 mx-auto gap-x-3 overflow-x-auto scroll-smooth lg:overflow-visible lg:flex-nowrap snap-x snap-mandatory">
                             <div className="h-40 max-w-44 px-2 aspect-video bg-gradient-radial from-primary rounded-xl via-primary/90 to-white/5 border border-grey flex-none snap-start">

@@ -9,7 +9,7 @@ export default function Header() {
 
     const routes = [
         { path: "/", name: "Home" },
-        { path: "#", name: "About Us" },
+        { path: "/about-us", name: "About Us" },
         { path: "/cars", name: "Cars" },
     ];
 

@@ -10,15 +10,18 @@ import Header from "../layout/header";
 export default function Home() {
   return (
     <>
-      <section className="min-h-screen relative">
+
+      <section className="min-h-screen relative max-w-[2800px] mx-auto">
         <Header />
         <MainHero />
       </section>
-      <Services />
-      <Values />
-      <Cars />
-      <Testimonial />
-      <Information />
+      <main className="max-w-[2800px] mx-auto">
+        <Services />
+        <Values />
+        <Cars />
+        <Testimonial />
+        <Information />
+      </main>
     </>
   )
 }

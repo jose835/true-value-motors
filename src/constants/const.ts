@@ -1,6 +1,6 @@
 import { CarProps } from "../types/types";
 
-export const categories = ['All', 'Family', 'Business', 'Wedding', 'Luxury'] as const;
+export const categories = ['All', 'Family', 'Business', 'Wedding', 'Luxury'];
 
 export const cars: CarProps[] = [
     { name: 'Honda Accord', image: './images/cars/honda-accord.png', price: '$4,000.00', users: 4, category: 'Family' },
