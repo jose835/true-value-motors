@@ -15,7 +15,7 @@ export default function Home() {
         <Header />
         <MainHero />
       </section>
-      <main className="max-w-[2800px] mx-auto">
+      <main className="max-w-[2800px] mx-auto overflow-x-hidden">
         <Services />
         <Values />
         <Cars />

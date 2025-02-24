@@ -17,7 +17,7 @@ export default function Header() {
         <header className="max-w-[2800px] z-50 absolute top-0 right-0 left-0 bg-transparent mx-auto px-6 xl:px-44 flex justify-between items-center bg-primary">
             <div className="flex flex-grow xl:basis-0">
                 <a href="/" className="flex items-center space-x-3">
-                    <img src="./images/logo-tvm.png" alt="Logo de True Value Motors" className="w-20 md:w-32 h-20 md:h-32 object-contain" />
+                    <img src="/images/logo-tvm.png" alt="Logo de True Value Motors" className="w-20 md:w-32 h-20 md:h-32 object-contain" />
                     <span className="hidden xl:block text-white font-bold text-2xl">
                         True <span className="text-accent">Value</span> Motor
                     </span>

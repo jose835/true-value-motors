@@ -1,8 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { AirConditionIcon, GasIcon, TransmitionIcon } from "../icons/icons";
-import { CarProps } from "../types/types";
+import { currencyFormatter } from "../lib/functions";
 
-export default function Car({ category, image, name, price }: Omit<CarProps, "users">) {
+interface Props {
+    id: string;
+    category: string;
+    image: string;
+    name: string;
+    price: number;
+    fuel: string;
+    isManual: boolean;
+    airConditioner: boolean;
+}
+
+export default function Car({ id, category, image, name, price, fuel, isManual, airConditioner }: Props) {
     const navigate = useNavigate();
     return (
         <article className="bg-gradient-radial from-primary rounded-xl via-primary/90 to-white/5 border border-grey">
@@ -15,8 +26,8 @@ export default function Car({ category, image, name, price }: Omit<CarProps, "us
                 </div>
 
                 <div>
-                    <h3 className="text-accent text-2xl font-semibold">{price}</h3>
-                    <span className="text-gray-300 text-sm font-medium block text-right">Precio</span>
+                    <h3 className="text-accent text-2xl font-semibold">{currencyFormatter(price)}</h3>
+                    <span className="text-gray-300 text-sm font-medium block text-right">Price</span>
                 </div>
             </div>
 
@@ -24,26 +35,26 @@ export default function Car({ category, image, name, price }: Omit<CarProps, "us
                 <div className="flex items-center space-x-1 justify-between">
                     <div className="flex items-center text-white space-x-1">
                         <TransmitionIcon />
-                        <span className="text-gray-300 font-medium">Automatic</span>
+                        <span className="text-gray-300 font-medium">{isManual ? "Manual" : "Automatic"}</span>
                     </div>
                     <div className="flex items-center text-white space-x-1">
                         <GasIcon />
-                        <span className="text-gray-300 font-medium">Gas</span>
+                        <span className="text-gray-300 font-medium">{fuel}</span>
                     </div>
                     <div className="flex items-center text-white space-x-1">
                         <AirConditionIcon />
-                        <span className="text-gray-300 font-medium">Air Conditioner</span>
+                        <span className="text-gray-300 font-medium">{airConditioner ? "Yes" : "No"}</span>
                     </div>
                 </div>
 
                 <button
                     style={{ boxShadow: "1px 10px 20px #0080B4" }}
-                    onClick={() => navigate("/car-information")}
+                    onClick={() => navigate(`/car-information/${id}`)}
                     className="bg-accent text-white w-full py-3 px-6 rounded-lg font-semibold text-sm"
                 >
                     View Details
                 </button>
             </footer>
-        </article>
+        </article >
     )
 }

@@ -1,11 +1,26 @@
-import { categories } from "../constants/const";
-
-export type Category = Exclude<typeof categories[number], 'All'>;
+export interface CategoryProps {
+    id: string;
+    name: string;
+    createdAt: Date;
+}
 
 export interface CarProps {
+    id: string;
     name: string;
-    image: string;
-    price: string;
-    users: number;
-    category: Category;
+    price: number;
+    category: {
+        id: string;
+        name: string;
+    };
+    seats: number;
+    door: number;
+    mileage: number;
+    isManual: boolean;
+    airConditioner: boolean;
+    fuel: {
+        id: string;
+        name: string;
+    };
+    dateAt: Date;
+    images: string[];
 }

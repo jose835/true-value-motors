@@ -1,32 +1,105 @@
+import { useParams } from "react-router-dom";
 import Check from "../components/check";
-import { cars } from "../constants/const";
 import { AirConditionIcon, ArrowRightIcon, DistanceIcon, DoorIcon, GasIcon, SeatIcon, TransmitionIcon } from "../icons/icons";
 import Header from "../layout/header";
+import { useEffect, useRef, useState } from "react";
+import { supabase } from "../api/supabase-client";
+import { CarProps } from "../types/types";
+import { currencyFormatter } from "../lib/functions";
 
 export default function CarInformation() {
+    const { id } = useParams();
+    const carsRef = useRef<CarProps[]>([]);
+    const [cars, setCars] = useState<CarProps[]>([]);
+    const [carInfo, setCarInfo] = useState<CarProps>();
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+    useEffect(() => {
+        async function loadCar() {
+            // Obtener los datos del carro desde la base de datos
+            const { data: carData, error: carError } = await supabase
+                .from("car")
+                .select("*, category:category(id, name), fuel:fuel(id, name)")
+                .eq("id", id)
+                .single();
+
+            if (carError) throw carError;
+
+            // Obtener las imágenes del bucket storage
+            const { data: images, error: imagesError } = await supabase
+                .storage
+                .from("cars-images")
+                .list(`cars/${id}`);
+
+            if (imagesError) throw imagesError;
+
+            // Generar las URLs públicas de cada imagen
+            const imageUrls = images.map(img =>
+                supabase.storage.from("cars-images").getPublicUrl(`cars/${id}/${img.name}`).data.publicUrl
+            );
+
+            console.log(imageUrls)
+            setCarInfo({ ...carData, images: imageUrls });
+
+        }
+
+        loadCar();
+    }, [id]);
+
+    useEffect(() => {
+        async function loadCars() {
+            const { data: carsData, error } = await supabase.from("car").select("*, category:category(id, name)");;
+            if (error) {
+                console.error("Error al obtener los coches:", error);
+                return;
+            }
+
+            const carsWithImages = await Promise.all(
+                (carsData as CarProps[]).map(async (car) => {
+                    const { data: imagesData } = await supabase.storage
+                        .from("cars-images")
+                        .list(`cars/${car.id}`);
+
+                    const images = imagesData
+                        ? imagesData.map((img) => supabase.storage.from("cars-images").getPublicUrl(`cars/${car.id}/${img.name}`).data.publicUrl)
+                        : [];
+
+                    return { ...car, images };
+                })
+            );
+
+            carsRef.current = carsWithImages;
+
+            setCars(carsWithImages);
+        }
+
+        loadCars();
+    }, [])
+
     return (
         <>
             <Header />
             <main className="2xl:px-44 px-8">
                 <section className="mt-32 md:mt-52 flex lg:flex-row flex-col justify-between items-start">
-                    <div className="lg:w-auto w-full">
-                        <h1 className="text-4xl text-white font-bold">BMW X6</h1>
-                        <h2 className="text-accent font-bold text-3xl mt-5">$15,000.00</h2>
-                        <img src="./images/cars/bmw-x6.png" alt="BMW X6" className="md:h-96 h-60 w-auto object-contain lg:mx-0 mx-auto" />
+                    <div className="lg:w-auto lg:max-w-[50%] w-full">
+                        <h1 className="text-4xl text-white font-bold">{carInfo?.name}</h1>
+                        <h2 className="text-accent font-bold text-3xl mt-5">{currencyFormatter(carInfo?.price ?? 0)}</h2>
+                        <img
+                            src={selectedImage ?? carInfo?.images[0]}
+                            alt="Car Image"
+                            className="md:h-96 h-60 w-auto object-contain lg:mx-0 mx-auto"
+                        />
 
                         <div className="md:grid hide-scrollbar md:w-fit xl:grid-cols-4 xl:gap-y-0 gap-y-3 lg:grid-cols-2 md:grid-cols-4 flex lg:mx-0 mx-auto gap-x-3 overflow-x-auto scroll-smooth lg:overflow-visible lg:flex-nowrap snap-x snap-mandatory">
-                            <div className="h-40 max-w-44 px-2 aspect-video bg-gradient-radial from-primary rounded-xl via-primary/90 to-white/5 border border-grey flex-none snap-start">
-                                <img src="./images/cars/bmw-x6-1.png" alt="BMW X6" className="size-full object-contain" />
-                            </div>
-                            <div className="h-40 max-w-44 px-2 aspect-video bg-gradient-radial from-primary rounded-xl via-primary/90 to-white/5 border border-grey flex-none snap-start">
-                                <img src="./images/cars/bmw-x6-2.png" alt="BMW X6" className="size-full object-contain" />
-                            </div>
-                            <div className="h-40 max-w-44 px-2 aspect-video bg-gradient-radial from-primary rounded-xl via-primary/90 to-white/5 border border-grey flex-none snap-start">
-                                <img src="./images/cars/bmw-x6-3.png" alt="BMW X6" className="size-full object-contain" />
-                            </div>
-                            <div className="h-40 max-w-44 px-2 aspect-video bg-gradient-radial from-primary rounded-xl via-primary/90 to-white/5 border border-grey flex-none snap-start">
-                                <img src="./images/cars/bmw-x6-4.png" alt="BMW X6" className="size-full object-contain" />
-                            </div>
+                            {carInfo?.images.map((image, index) => (
+                                <div
+                                    key={index}
+                                    className={`h-40 max-w-44 ${selectedImage === image ? 'border-4 border-gray-300' : ""} px-2 aspect-video bg-gradient-radial from-primary rounded-xl via-primary/90 to-white/5 border border-grey flex-none snap-start cursor-pointer ${selectedImage === image ? "border-accent border-2" : ""}`}
+                                    onClick={() => setSelectedImage(image)}
+                                >
+                                    <img src={image} alt="Car Thumbnail" className="size-full object-contain" />
+                                </div>
+                            ))}
                         </div>
                     </div>
 
@@ -37,37 +110,37 @@ export default function CarInformation() {
                             <article className="text-white sm:w-48 w-40 rounded-xl py-5 px-3 bg-[#1D1D1D80] border border-grey">
                                 <TransmitionIcon />
                                 <h4 className="mt-3 font-semibold">Gear Box</h4>
-                                <span className="text-gray-300 font-medium text-sm">Automatic</span>
+                                <span className="text-gray-300 font-medium text-sm">{carInfo?.isManual ? "Manual" : "Automatic"}</span>
                             </article>
 
                             <article className="text-white sm:w-48 w-40 rounded-xl py-5 px-3 bg-[#1D1D1D80] border border-grey">
                                 <GasIcon />
                                 <h4 className="mt-3 font-semibold">Fuel</h4>
-                                <span className="text-gray-300 font-medium text-sm">Petrol</span>
+                                <span className="text-gray-300 font-medium text-sm">{carInfo?.fuel.name}</span>
                             </article>
 
                             <article className="text-white sm:w-48 w-40 rounded-xl py-5 px-3 bg-[#1D1D1D80] border border-grey">
                                 <DoorIcon />
                                 <h4 className="mt-3 font-semibold">Door</h4>
-                                <span className="text-gray-300 font-medium text-sm">2</span>
+                                <span className="text-gray-300 font-medium text-sm">{carInfo?.door}</span>
                             </article>
 
                             <article className="text-white sm:w-48 w-40 rounded-xl py-5 px-3 bg-[#1D1D1D80] border border-grey">
                                 <AirConditionIcon />
                                 <h4 className="mt-3 font-semibold">Air Conditioner</h4>
-                                <span className="text-gray-300 font-medium text-sm">Yes</span>
+                                <span className="text-gray-300 font-medium text-sm">{carInfo?.airConditioner ? "Yes" : "No"}</span>
                             </article>
 
                             <article className="text-white sm:w-48 w-40 rounded-xl py-5 px-3 bg-[#1D1D1D80] border border-grey">
                                 <SeatIcon />
                                 <h4 className="mt-3 font-semibold">Seats</h4>
-                                <span className="text-gray-300 font-medium text-sm">5</span>
+                                <span className="text-gray-300 font-medium text-sm">{carInfo?.seats}</span>
                             </article>
 
                             <article className="text-white sm:w-48 w-40 rounded-xl py-5 px-3 bg-[#1D1D1D80] border border-grey">
                                 <DistanceIcon />
                                 <h4 className="mt-3 font-semibold">Distance</h4>
-                                <span className="text-gray-300 font-medium text-sm">500</span>
+                                <span className="text-gray-300 font-medium text-sm">{carInfo?.mileage}</span>
                             </article>
                         </div>
 
@@ -122,14 +195,14 @@ export default function CarInformation() {
                     </div>
 
                     <div className="grid 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mt-8">
-                        {cars.map(({ image, name, price, category }, index) => (
+                        {cars.map(({ images, name, price, category, airConditioner, fuel, isManual }, index) => (
                             <article key={index} className="bg-gradient-radial from-primary rounded-xl via-primary/90 to-white/5 border border-grey">
-                                <img src={image} alt={name} className="w-full h-auto md:aspect-square object-contain " />
+                                <img src={images[0]} alt={name} className="w-full h-auto md:aspect-square object-contain " />
 
                                 <div className="flex items-center px-4 mb-10 justify-between">
                                     <div>
                                         <h3 className="text-white font-semibold text-2xl">{name}</h3>
-                                        <span className="text-gray-300 font-normal">{category}</span>
+                                        <span className="text-gray-300 font-normal">{category.name}</span>
                                     </div>
 
                                     <div>
@@ -142,15 +215,15 @@ export default function CarInformation() {
                                     <div className="flex items-center space-x-1 justify-between">
                                         <div className="flex items-center text-white space-x-1">
                                             <TransmitionIcon />
-                                            <span className="text-gray-300 font-medium">Automatic</span>
+                                            <span className="text-gray-300 font-medium">{isManual ? "Manual" : "Automatic"}</span>
                                         </div>
                                         <div className="flex items-center text-white space-x-1">
                                             <GasIcon />
-                                            <span className="text-gray-300 font-medium">Gas</span>
+                                            <span className="text-gray-300 font-medium">{fuel.name}</span>
                                         </div>
                                         <div className="flex items-center text-white space-x-1">
                                             <AirConditionIcon />
-                                            <span className="text-gray-300 font-medium">Air Conditioner</span>
+                                            <span className="text-gray-300 font-medium">{airConditioner ? "Yes" : "No"}</span>
                                         </div>
                                     </div>
 

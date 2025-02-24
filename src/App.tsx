@@ -14,7 +14,7 @@ function App() {
   const routes: RouteType[] = [
     { path: "/", element: <Home /> },
     { path: "cars", element: <Cars /> },
-    { path: "car-information", element: <CarInformation /> },
+    { path: "car-information/:id", element: <CarInformation /> },
     { path: "about-us", element: <About /> },
   ];
 
