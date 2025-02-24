@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import FieldSelect from "./FieldSelect";
-import { categories } from "../constants/const";
 
 export default function BannerMain() {
     const navigate = useNavigate();
@@ -44,7 +43,7 @@ export default function BannerMain() {
                 <div className="space-y-5">
                     <h2 className="font-semibold text-2xl text-center">Find your car</h2>
                     <FieldSelect name="Car Brand" options={["BMW", "Mercedes", "Audi", "Ford"]} />
-                    <FieldSelect name="Car Type" options={categories} />
+                    {/* <FieldSelect name="Car Type" options={categories} /> */}
                     <FieldSelect name="Car Year" options={["2022", "2023", "2024"]} />
                     <FieldSelect name="Car Price" options={["$10,000.00", "$15,000.00", "$20,000.00"]} />
                 </div>
