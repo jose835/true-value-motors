@@ -81,7 +81,7 @@ export default function CarInformation() {
             <Header />
             <main className="2xl:px-44 px-8">
                 <section className="mt-32 md:mt-52 flex lg:flex-row flex-col justify-between items-start">
-                    <div className="lg:w-auto lg:max-w-[50%] w-full">
+                    <div className="lg:w-auto lg:max-w-[50%] w-f">
                         <h1 className="text-4xl text-white font-bold">{carInfo?.name}</h1>
                         <h2 className="text-accent font-bold text-3xl mt-5">{currencyFormatter(carInfo?.price ?? 0)}</h2>
                         <img
